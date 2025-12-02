@@ -7,16 +7,17 @@
         <Grid.Clip>
             <RoundRectangleGeometry CornerRadius="20" Rect="0,0,500,500"/>
         </Grid.Clip>
-        <VerticalStackLayout Spacing="-30" Margin="0,-20,0,0">
+        <VerticalStackLayout Spacing="-50" Margin="0,-40,0,0">
             <Image Source="https://dcassetcdn.com/design_img/4037633/521021/30458202/8jx4nkx5jtsyw43tm9nae7dyfs_image.jpg" WidthRequest="200" HeightRequest="200" Aspect="AspectFit" VerticalOptions="Start"/>
             <Label Text="Restoran Yönetimi" HorizontalOptions="Center" FontAttributes="Bold" FontSize="24"/>
         </VerticalStackLayout>
-        <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="15" Margin="0,200,0,0">
-            <Button WidthRequest="400" HeightRequest="10" Text="Deneme"/>
-            <Button WidthRequest="400" HeightRequest="10" Text="deneme"/>
-            <Button WidthRequest="400" HeightRequest="10" Text="deneme"/>
-            <Button WidthRequest="400" HeightRequest="10" Text="deneme"/>
-            <Button WidthRequest="400" HeightRequest="10" Text="deneme"/>
+        <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="10" Margin="0,150,0,0">
+            <Button WidthRequest="400" HeightRequest="8" Text="Sipariş Ekle"/>
+            <Button WidthRequest="400" HeightRequest="8" Text="Sipariş Listesi"/>
+            <Button WidthRequest="400" HeightRequest="8" Text="Garson Yönetimi"/>
+            <Button WidthRequest="400" HeightRequest="8" Text="Masa Yönetimi"/>
+            <Button WidthRequest="400" HeightRequest="8" Text="Ürün Yönetimi"/>
+            <Button WidthRequest="400" HeightRequest="8" Text="Çıkış Yap"/>
         </VerticalStackLayout>
     </Grid>
 </ContentPage>
