@@ -2,11 +2,24 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="RestaurantOrderManagement.Pages.WaiterPanel"
-             Title="WaiterPanel">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             Title="" BackgroundColor="Beige">
+    <Grid BackgroundColor="White" WidthRequest="500" HeightRequest="500" VerticalOptions="Center" HorizontalOptions="Center">
+        <Grid.Clip>
+            <RoundRectangleGeometry CornerRadius="20" Rect="0,0,500,500"/>
+        </Grid.Clip>
+
+        <VerticalStackLayout VerticalOptions="Start" HorizontalOptions="Center" Spacing="-30" >
+            <Image Source="https://dcassetcdn.com/design_img/4037633/521021/30458202/8jx4nkx5jtsyw43tm9nae7dyfs_image.jpg" 
+                   WidthRequest="200" 
+                   HeightRequest="200" 
+                   Aspect="AspectFit"/>
+            <Label Text="Garson Paneli" HorizontalOptions="Center"/>
+        </VerticalStackLayout>
+
+        <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="15" Margin="0,280,0,0">
+            <Button WidthRequest="400" HeightRequest="10" Text="Deneme"/>
+            <Button WidthRequest="400" HeightRequest="10" Text="deneme"/>
+            <Button WidthRequest="400" HeightRequest="10" Text="deneme"/>
+        </VerticalStackLayout>
+    </Grid>
 </ContentPage>
