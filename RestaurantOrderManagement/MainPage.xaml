@@ -26,8 +26,8 @@
                 <VerticalStackLayout Spacing="40">
                     <Border StrokeThickness="0">
                         <VerticalStackLayout Spacing="30">
-                            <Entry BackgroundColor="Transparent" Placeholder="Email veya kullanıcı adınızı girin"/>
-                            <Entry BackgroundColor="Transparent" Placeholder="Şifrenizi Girin"/>
+                            <Entry BackgroundColor="Transparent" Placeholder="Email veya kullanıcı adınızı girin" x:Name="Username" />
+                            <Entry BackgroundColor="Transparent" Placeholder="Şifrenizi Girin" x:Name="Password"/>
                         </VerticalStackLayout>
                     </Border>
                 </VerticalStackLayout>
