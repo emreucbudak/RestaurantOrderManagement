@@ -13,13 +13,13 @@
                    WidthRequest="200" 
                    HeightRequest="200" 
                    Aspect="AspectFit"/>
-            <Label Text="Garson Paneli" HorizontalOptions="Center"/>
+            <Label Text="Garson Paneli" HorizontalOptions="Center" FontSize="24" FontAttributes="Bold"/>
         </VerticalStackLayout>
 
         <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="15" Margin="0,280,0,0">
-            <Button WidthRequest="400" HeightRequest="10" Text="Deneme"/>
-            <Button WidthRequest="400" HeightRequest="10" Text="deneme"/>
-            <Button WidthRequest="400" HeightRequest="10" Text="deneme"/>
+            <Button WidthRequest="400" HeightRequest="10" Text="Sipariş Ekle" FontSize="20" />
+            <Button WidthRequest="400" HeightRequest="10" Text="Sipariş Listesi" FontSize="20" />
+            <Button WidthRequest="400" HeightRequest="10" Text="Çıkış Yap" FontSize="20"/>
         </VerticalStackLayout>
     </Grid>
 </ContentPage>
