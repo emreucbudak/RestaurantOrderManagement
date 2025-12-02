@@ -26,16 +26,24 @@ namespace RestaurantOrderManagement
             var json = JsonSerializer.Serialize(loginRequest);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
             var response = await client.PostAsync("http://127.0.0.1:8000/auth/login", content);
-            var result = await response.Content.ReadAsStringAsync();
-            var respons = JsonSerializer.Deserialize<LoginResponse>(result);
-            if (respons is not null && respons.role is "restaurantmanager")
+            if (response.IsSuccessStatusCode)
             {
-                await Shell.Current.GoToAsync("///RestaurantManager");
+                var result = await response.Content.ReadAsStringAsync();
+                var respons = JsonSerializer.Deserialize<LoginResponse>(result);
+                if (respons is not null && respons.role is "restaurantmanager")
+                {
+                    await Shell.Current.GoToAsync("///RestaurantManager");
+                }
+                if (respons is not null && respons.role is "waiter")
+                {
+                    await Shell.Current.GoToAsync("///WaiterPanel");
+                }
             }
-            if (respons is not null && respons.role is "waiter")
+            else
             {
-                await Shell.Current.GoToAsync("///WaiterPanel");
-            }
+                throw new Exception("Hata | Giriş sırasında bir hata meydana geldi");
+                    }
+
 
         }
     }
