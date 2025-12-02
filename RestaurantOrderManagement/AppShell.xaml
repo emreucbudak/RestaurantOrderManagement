@@ -4,11 +4,15 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:RestaurantOrderManagement"
-    Title="" Shell.NavBarIsVisible="False">
+    Title="" Shell.NavBarIsVisible="False"
+    xmlns:pages="clr-namespace:RestaurantOrderManagement.Pages">
 
     <ShellContent
-        Title="Home"
         ContentTemplate="{DataTemplate local:MainPage}"
         Route="MainPage" />
+    <ShellContent ContentTemplate="{DataTemplate pages:RestaurantManagerPanel}"
+                  Route="RestaurantManager"/>
+    <ShellContent ContentTemplate="{DataTemplate pages:WaiterPanel}"
+                  Route="WaiterPanel"/>
 
 </Shell>
