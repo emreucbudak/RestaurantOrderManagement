@@ -1,4 +1,6 @@
-﻿namespace RestaurantOrderManagement
+﻿using System.Threading.Tasks;
+
+namespace RestaurantOrderManagement
 {
     public partial class MainPage : ContentPage
     {
@@ -9,9 +11,9 @@
             InitializeComponent();
         }
 
-        private void OnCounterClicked(object? sender, EventArgs e)
+        private async void onAuthClicked(object sender, EventArgs e)
         {
-
+            await Shell.Current.GoToAsync("///RestaurantManager");
         }
     }
 }

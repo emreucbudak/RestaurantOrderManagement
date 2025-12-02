@@ -31,7 +31,7 @@
                         </VerticalStackLayout>
                     </Border>
                 </VerticalStackLayout>
-                <Button Text="Giriş Yap"/>
+                <Button Text="Giriş Yap" Clicked="onAuthClicked"/>
             </VerticalStackLayout>
         </Border>
     </Grid>
