@@ -2,11 +2,121 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="RestaurantOrderManagement.Pages.DeskManagement"
-             Title="DeskManagement">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             Title="" BackgroundColor="Beige">
+
+    <Grid RowDefinitions="Auto,*" ColumnDefinitions="*,*" ColumnSpacing="50" WidthRequest="1000" HeightRequest="500" HorizontalOptions="Center" VerticalOptions="Center">
+        <Grid.Clip>
+            <RoundRectangleGeometry Rect="0,0,1000,500" CornerRadius="20"/>
+        </Grid.Clip>
+
+        <!-- Geri Dön Butonu -->
+        <Button Grid.Row="0" Grid.ColumnSpan="2" 
+                Text="← Geri Dön" 
+                BackgroundColor="#FF6B6B"
+                TextColor="White"
+                FontAttributes="Bold"
+                FontSize="14"
+                CornerRadius="8"
+                WidthRequest="120"
+                HeightRequest="40"
+                HorizontalOptions="Start"
+                VerticalOptions="Start"
+                Margin="20,10,0,10" Clicked="OnBackButtonClicked"/>
+
+        <!-- Sol Taraf - Masa Ekleme -->
+        <Border Grid.Row="1" Grid.Column="0" StrokeThickness="0" BackgroundColor="White">
+            <VerticalStackLayout Spacing="50" VerticalOptions="Center" HorizontalOptions="Center">
+
+                <HorizontalStackLayout WidthRequest="400" HorizontalOptions="Center" VerticalOptions="Center" Spacing="10">
+                    <Entry WidthRequest="250" Placeholder="Masa İsmi Giriniz" x:Name="DeskName"/>
+                </HorizontalStackLayout>
+
+                <HorizontalStackLayout WidthRequest="400" HorizontalOptions="Center" VerticalOptions="Center" Spacing="10">
+                    <Button WidthRequest="250" Text="Masa Ekle" Clicked="OnAddDeskClicked" />
+                </HorizontalStackLayout>
+
+            </VerticalStackLayout>
+        </Border>
+
+        <Border Grid.Row="1" Grid.Column="1" 
+        StrokeThickness="1" 
+        Stroke="#E0E0E0"
+        BackgroundColor="White"
+        Padding="0"
+        Margin="10">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="8"/>
+            </Border.StrokeShape>
+
+            <Grid RowDefinitions="Auto,*" VerticalOptions="Start">
+
+                <Grid Grid.Row="0" 
+              ColumnDefinitions="3*,Auto" 
+              BackgroundColor="#F5F5F5"
+              Padding="15,12">
+                    <Label Grid.Column="0" 
+                   Text="Masa İsmi" 
+                   FontAttributes="Bold" 
+                   FontSize="14"
+                   TextColor="#333333"/>
+                    <Label Grid.Column="1" 
+                   Text="İşlem" 
+                   FontAttributes="Bold" 
+                   FontSize="14"
+                   TextColor="#333333"
+                   HorizontalOptions="Center"
+                   Margin="10,0,0,0"/>
+                </Grid>
+
+                <CollectionView Grid.Row="1" 
+                        ItemsSource="{Binding Waiters}"
+                        SelectionMode="None">
+
+                    <CollectionView.EmptyView>
+                        <Label Text="Henüz hiç masa eklenmemiş." 
+                       HorizontalOptions="Center" 
+                       VerticalOptions="Center" 
+                       TextColor="Gray"/>
+                    </CollectionView.EmptyView>
+
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <VerticalStackLayout Spacing="0">
+
+                                <Grid ColumnDefinitions="3*,Auto" 
+                              Padding="15,12"
+                              BackgroundColor="White">
+
+                                    <Label Grid.Column="0" 
+                                   Text="{Binding name}" 
+                                   FontSize="14"
+                                   TextColor="#555555"
+                                   VerticalOptions="Center"
+                                   FontAttributes="Bold"/>
+
+                                    <Button Grid.Column="1" 
+                                    Text="🗑️" 
+                                    FontSize="16"
+                                    BackgroundColor="#FF4444"
+                                    TextColor="White"
+                                    CornerRadius="6"
+                                    Padding="12,8"
+                                    Margin="10,0,0,0"
+                                    VerticalOptions="Center"
+                                    Clicked="OnDeleteDeskClicked"
+                                    CommandParameter="{Binding .}"/>
+                                </Grid>
+
+                                <BoxView HeightRequest="1" Color="#E0E0E0" />
+
+                            </VerticalStackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+            </Grid>
+        </Border>
+
+    </Grid>
+
 </ContentPage>
