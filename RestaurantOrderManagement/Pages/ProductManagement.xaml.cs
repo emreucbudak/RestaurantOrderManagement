@@ -15,4 +15,8 @@ public partial class ProductManagement : ContentPage
 	{
 		await Shell.Current.GoToAsync("///ProductCategoryManagementPage");
 	}
+	private async void OnBackButtonClicked (object sender, EventArgs e)
+	{
+		await Shell.Current.GoToAsync("///RestaurantManager");
+    }
 }
