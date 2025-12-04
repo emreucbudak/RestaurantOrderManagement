@@ -80,19 +80,19 @@ public partial class WaiterManagementPage : ContentPage
     {
         try
         {
-           
+
             using var client = new HttpClient();
             var waiterstList = await client.GetFromJsonAsync<List<Waiter>>("http://127.0.0.1:8000/auth/waiters");
 
             if (waiterstList != null)
             {
-                
 
-                Waiters.Clear(); 
+
+                Waiters.Clear();
 
                 foreach (var item in waiterstList)
                 {
-                    Waiters.Add(item); 
+                    Waiters.Add(item);
                 }
             }
         }
@@ -100,5 +100,28 @@ public partial class WaiterManagementPage : ContentPage
         {
             await DisplayAlertAsync("Hata", $"Liste çekilemedi {ex.Message}", "OK");
         }
+    }
+    private async void OnDeleteClicked(object sender, EventArgs e)
+    {
+        var button = sender as Button;
+        var waiter = button?.BindingContext as Waiter;
+        if (waiter == null)
+            return;
+        string usernameToDelete = waiter.username;
+        try
+        {
+            using var client = new HttpClient();
+            var response = await client.DeleteAsync($"http://127.0.0.1:8000/auth/waiters/{usernameToDelete}");
+            await RefreshListFromApi();
+
+        }
+        catch(Exception ex)
+        {
+            await DisplayAlertAsync("Hata", $"Garson silinemedi {ex.Message}", "OK");
+        }
+    }
+    private async void OnBackButtonClicked (object sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync("///RestaurantManager");
     }
 }
