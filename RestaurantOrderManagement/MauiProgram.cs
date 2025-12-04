@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using RestaurantOrderManagement.Models;
+using RestaurantOrderManagement.Pages;
 
 namespace RestaurantOrderManagement
 {
@@ -15,6 +16,7 @@ namespace RestaurantOrderManagement
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
+            builder.Services.AddTransient<WaiterManagementPage>();
             builder.Services.AddSingleton<LoginService>();
 
 #if DEBUG
