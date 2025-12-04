@@ -6,4 +6,8 @@ public partial class WaiterPanel : ContentPage
 	{
 		InitializeComponent();
 	}
+	private async void OnLogOutClicked(object sender, EventArgs e)
+	{
+		await Shell.Current.GoToAsync("///MainPage");
+    }
 }
