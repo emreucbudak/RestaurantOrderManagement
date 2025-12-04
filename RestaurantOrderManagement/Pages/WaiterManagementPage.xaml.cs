@@ -1,5 +1,8 @@
 using RestaurantOrderManagement.Models;
+using System.Collections.ObjectModel;
+using System.Net.Http.Json;
 using System.Text;
+
 
 namespace RestaurantOrderManagement.Pages;
 
@@ -7,6 +10,7 @@ public partial class WaiterManagementPage : ContentPage
 {
     private readonly LoginService _login;
     private readonly int _restaurantId;
+    public ObservableCollection<Waiter> Waiters { get; set; } = new ObservableCollection<Waiter>();
 
 
 
@@ -14,8 +18,9 @@ public partial class WaiterManagementPage : ContentPage
     {
         InitializeComponent();
         _login = login;
+        WaitersList.ItemsSource = Waiters;
 
-
+        RefreshListFromApi();
         _restaurantId = _login.CurrentSession.RestoranId;
     }
 
@@ -63,11 +68,37 @@ public partial class WaiterManagementPage : ContentPage
                 WaiterName.Text = "";
                 WaiterUsername.Text = "";
                 WaiterPassword.Text = "";
+                await RefreshListFromApi();
             }
         }
         catch (Exception ex)
         {
             await DisplayAlertAsync("Hata", $"Garson eklenemedi {ex.Message}", "OK");
+        }
+    }
+    private async Task RefreshListFromApi()
+    {
+        try
+        {
+           
+            using var client = new HttpClient();
+            var waiterstList = await client.GetFromJsonAsync<List<Waiter>>("http://127.0.0.1:8000/auth/waiters");
+
+            if (waiterstList != null)
+            {
+                
+
+                Waiters.Clear(); 
+
+                foreach (var item in waiterstList)
+                {
+                    Waiters.Add(item); 
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlertAsync("Hata", $"Liste çekilemedi {ex.Message}", "OK");
         }
     }
 }

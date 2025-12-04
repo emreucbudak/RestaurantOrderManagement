@@ -33,28 +33,73 @@
 
         </Border>
 
-        <Border Grid.Column="1" StrokeThickness="0" BackgroundColor="White">
+        <Border Grid.Column="1" 
+        StrokeThickness="1" 
+        Stroke="#E0E0E0"
+        BackgroundColor="White"
+        Padding="0"
+        Margin="10">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="8"/>
+            </Border.StrokeShape>
 
-            <Grid 
-        RowDefinitions="Auto,Auto,Auto"  
-        ColumnDefinitions="*,*,*"      
-        Padding="10" 
-        VerticalOptions="Start"
-        >
+            <Grid RowDefinitions="Auto,*" VerticalOptions="Start">
 
-                <Label Grid.Row="0" Grid.Column="0" Text="Name"      FontAttributes="Bold" HorizontalOptions="Center" />
-                <Label Grid.Row="0" Grid.Column="1" Text="Username"  FontAttributes="Bold" HorizontalOptions="Center" />
-                <Label Grid.Row="0" Grid.Column="2" Text="Password"  FontAttributes="Bold" HorizontalOptions="Center" />
+                <!-- Header -->
+                <Grid Grid.Row="0" 
+              ColumnDefinitions="2*,2*,2*,Auto" 
+              BackgroundColor="#F5F5F5"
+              Padding="15,12">
+                    <Label Grid.Column="0" 
+                   Text="Name" 
+                   FontAttributes="Bold" 
+                   FontSize="14"
+                   TextColor="#333333"/>
+                    <Label Grid.Column="1" 
+                   Text="Username" 
+                   FontAttributes="Bold" 
+                   FontSize="14"
+                   TextColor="#333333"/>
+                    <Label Grid.Column="2" 
+                   Text="Password" 
+                   FontAttributes="Bold" 
+                   FontSize="14"
+                   TextColor="#333333"/>
+                    <Label Grid.Column="3" 
+                   Text="Action" 
+                   FontAttributes="Bold" 
+                   FontSize="14"
+                   TextColor="#333333"
+                   HorizontalOptions="Center"
+                   Margin="10,0,0,0"/>
+                </Grid>
 
-                <BoxView Grid.Row="0" Grid.ColumnSpan="3" HeightRequest="1" Color="LightGray" VerticalOptions="End" />
+                <!-- Data Rows -->
+                <CollectionView Grid.Column="1" x:Name="WaitersList">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
 
-                <Label Grid.Row="1" Grid.Column="0" Text="Ahmet Y." HorizontalOptions="Center" Margin="0,5,0,0" />
-                <Label Grid.Row="1" Grid.Column="1" Text="ahmet.y" HorizontalOptions="Center" Margin="0,5,0,0" />
-                <Label Grid.Row="1" Grid.Column="2" Text="********" HorizontalOptions="Center" Margin="0,5,0,0" />
+                            <Border StrokeThickness="0" BackgroundColor="White" Margin="0,0,0,10" StrokeShape="RoundRectangle 12">
+                                <Border.Shadow>
+                                    <Shadow Brush="Black" Offset="0,2" Radius="5" Opacity="0.1" />
+                                </Border.Shadow>
 
-                <Label Grid.Row="2" Grid.Column="0" Text="Ayşe D." HorizontalOptions="Center" Margin="0,5,0,0" />
-                <Label Grid.Row="2" Grid.Column="1" Text="ayse_d" HorizontalOptions="Center" Margin="0,5,0,0" />
-                <Label Grid.Row="2" Grid.Column="2" Text="********" HorizontalOptions="Center" Margin="0,5,0,0" />
+                                <Grid ColumnDefinitions="2*,2*,2*,Auto" Padding="15,15" VerticalOptions="Center">
+
+                                    <Label Grid.Column="0" Text="{Binding name}" TextColor="#333" VerticalOptions="Center" FontAttributes="Bold"/>
+                                    <Label Grid.Column="1" Text="{Binding username}" TextColor="#666" VerticalOptions="Center"/>
+                                    <Label Grid.Column="2" Text="{Binding password}" TextColor="#999" VerticalOptions="Center" CharacterSpacing="2"/>
+
+                                    <Button Grid.Column="3" Text="🗑️" 
+                                    BackgroundColor="#FFEBEE" TextColor="#D32F2F"
+                                    HeightRequest="35" WidthRequest="40" Padding="0" CornerRadius="8"
+                                    Clicked="OnDeleteClicked"/>
+                                </Grid>
+                            </Border>
+
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
 
             </Grid>
         </Border>
