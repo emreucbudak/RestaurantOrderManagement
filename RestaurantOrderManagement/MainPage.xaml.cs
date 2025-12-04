@@ -8,11 +8,12 @@ namespace RestaurantOrderManagement
 {
     public partial class MainPage : ContentPage
     {
+        private readonly LoginService _loginService;
 
-
-        public MainPage()
+        public MainPage(LoginService loginService)
         {
             InitializeComponent();
+            _loginService = loginService;
         }
 
         private async void onAuthClicked(object sender, EventArgs e)
@@ -36,12 +37,16 @@ namespace RestaurantOrderManagement
                     {
                         Username.Text = string.Empty;
                         Password.Text = string.Empty;
+                        _loginService.CurrentSession.AccessToken = respons.access_token;
+                        _loginService.CurrentSession.RestoranId = respons.restaurant_id;
                         await Shell.Current.GoToAsync("///RestaurantManager");
                     }
                     if (respons is not null && respons.role is "waiter")
                     {
                         Username.Text = string.Empty;
                         Password.Text = string.Empty;
+                        _loginService.CurrentSession.AccessToken = respons.access_token;
+                        _loginService.CurrentSession.RestoranId = respons.restaurant_id;
                         await Shell.Current.GoToAsync("///WaiterPanel");
                     }
                 }
