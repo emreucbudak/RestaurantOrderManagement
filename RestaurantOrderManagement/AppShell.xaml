@@ -14,5 +14,15 @@
                   Route="RestaurantManager"/>
     <ShellContent ContentTemplate="{DataTemplate pages:WaiterPanel}"
                   Route="WaiterPanel"/>
-
+    <ShellContent ContentTemplate="{DataTemplate pages:DeskManagement}"
+                  Route="DeskManagement"/>
+    <ShellContent ContentTemplate="{DataTemplate pages:ProductManagement}"
+                  Route="ProductManagement"/>
+    <ShellContent ContentTemplate="{DataTemplate pages:AddOrders}"
+                  Route="AddOrders"/>
+    <ShellContent ContentTemplate="{DataTemplate pages:OrderListPage}"
+                  Route="OrderList"/>
+    <ShellContent ContentTemplate="{DataTemplate pages:WaiterManagementPage}"
+                  Route="WaiterManagement"/>
+    
 </Shell>
