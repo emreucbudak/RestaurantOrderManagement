@@ -17,34 +17,38 @@ namespace RestaurantOrderManagement
 
         private async void onAuthClicked(object sender, EventArgs e)
         {
-            var client = new HttpClient();
-            var loginRequest = new LoginRequest()
+            try
             {
-                username = Username.Text,
-                password = Password.Text,
-            };
-            var json = JsonSerializer.Serialize(loginRequest);
-            var content = new StringContent(json, Encoding.UTF8, "application/json");
-            var response = await client.PostAsync("http://127.0.0.1:8000/auth/login", content);
-            if (response.IsSuccessStatusCode)
-            {
-                var result = await response.Content.ReadAsStringAsync();
-                var respons = JsonSerializer.Deserialize<LoginResponse>(result);
-                if (respons is not null && respons.role is "restaurantmanager")
+                var client = new HttpClient();
+                var loginRequest = new LoginRequest()
                 {
-                    await Shell.Current.GoToAsync("///RestaurantManager");
-                }
-                if (respons is not null && respons.role is "waiter")
+                    username = Username.Text,
+                    password = Password.Text,
+                };
+                var json = JsonSerializer.Serialize(loginRequest);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                var response = await client.PostAsync("http://127.0.0.1:8000/auth/login", content);
+                if (response.IsSuccessStatusCode)
                 {
-                    await Shell.Current.GoToAsync("///WaiterPanel");
+                    var result = await response.Content.ReadAsStringAsync();
+                    var respons = JsonSerializer.Deserialize<LoginResponse>(result);
+                    if (respons is not null && respons.role is "restaurant_manager" )
+                    {
+                        await Shell.Current.GoToAsync("///RestaurantManager");
+                    }
+                    if (respons is not null && respons.role is "waiter")
+                    {
+                        await Shell.Current.GoToAsync("///WaiterPanel");
+                    }
                 }
             }
-            else
+            catch (Exception ex)
             {
-                throw new Exception("Hata | Giriş sırasında bir hata meydana geldi");
-                    }
+                await DisplayAlertAsync("Error", ex.Message, "OK");
 
 
+
+            }
         }
     }
 }
