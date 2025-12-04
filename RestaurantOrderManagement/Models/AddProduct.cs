@@ -4,9 +4,11 @@ using System.Text;
 
 namespace RestaurantOrderManagement.Models
 {
-    public class ProductCategory
+    public class AddProduct
     {
-        public int id { get; set; }
         public string name { get; set; }
+        public decimal price { get; set; }
+        public int category_id { get; set; }
+        public int restaurant_id { get; set; }
     }
 }
