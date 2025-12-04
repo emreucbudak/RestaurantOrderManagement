@@ -34,10 +34,14 @@ namespace RestaurantOrderManagement
                     var respons = JsonSerializer.Deserialize<LoginResponse>(result);
                     if (respons is not null && respons.role is "restaurant_manager" )
                     {
+                        Username.Text = string.Empty;
+                        Password.Text = string.Empty;
                         await Shell.Current.GoToAsync("///RestaurantManager");
                     }
                     if (respons is not null && respons.role is "waiter")
                     {
+                        Username.Text = string.Empty;
+                        Password.Text = string.Empty;
                         await Shell.Current.GoToAsync("///WaiterPanel");
                     }
                 }
