@@ -24,8 +24,8 @@
                             HorizontalOptions="Center" 
                             Spacing="20"
                             Margin="0,0,0,50">
-            <Button WidthRequest="400" Text="Ürün Yönetimi"/>
-            <Button WidthRequest="400" Text="Ürün Kategori Yönetimi"/>
+            <Button WidthRequest="400" Text="Ürün Yönetimi" Clicked="OnProductManagementClicked"/>
+            <Button WidthRequest="400" Text="Ürün Kategori Yönetimi" Clicked="OnProductCategoryManagementClicked"/>
         </VerticalStackLayout>
     </Grid>
 </ContentPage>
