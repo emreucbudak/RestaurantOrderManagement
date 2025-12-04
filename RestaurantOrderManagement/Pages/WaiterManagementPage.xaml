@@ -3,11 +3,27 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="RestaurantOrderManagement.Pages.WaiterManagementPage"
              Title="" BackgroundColor="Beige">
-    <Grid ColumnDefinitions="*,*" ColumnSpacing="50" WidthRequest="1000" HeightRequest="500">
+    <Grid RowDefinitions="Auto,*" ColumnDefinitions="*,*" ColumnSpacing="50" WidthRequest="1000" HeightRequest="500">
         <Grid.Clip>
             <RoundRectangleGeometry Rect="0,0,1000,500" CornerRadius="20"/>
         </Grid.Clip>
-        <Border Grid.Column="0" StrokeThickness="0" BackgroundColor="White">
+
+        <!-- Geri Dön Butonu -->
+        <Button Grid.Row="0" Grid.ColumnSpan="2" 
+                Text="← Geri Dön" 
+                BackgroundColor="#FF6B6B"
+                TextColor="White"
+                FontAttributes="Bold"
+                FontSize="14"
+                CornerRadius="8"
+                WidthRequest="120"
+                HeightRequest="40"
+                HorizontalOptions="Start"
+                VerticalOptions="Start"
+                Margin="20,10,0,10"
+                Clicked="OnBackButtonClicked"/>
+
+        <Border Grid.Row="1" Grid.Column="0" StrokeThickness="0" BackgroundColor="White">
 
             <VerticalStackLayout Spacing="50" Margin="0,50,0,0" >
 
@@ -33,7 +49,7 @@
 
         </Border>
 
-        <Border Grid.Column="1" 
+        <Border Grid.Row="1" Grid.Column="1" 
         StrokeThickness="1" 
         Stroke="#E0E0E0"
         BackgroundColor="White"
@@ -75,7 +91,7 @@
                 </Grid>
 
                 <!-- Data Rows -->
-                <CollectionView Grid.Column="1" x:Name="WaitersList">
+                <CollectionView Grid.Row="1" x:Name="WaitersList">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
 
