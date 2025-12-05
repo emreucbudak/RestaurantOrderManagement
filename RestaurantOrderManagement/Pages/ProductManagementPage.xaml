@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="RestaurantOrderManagement.Pages.ProductManagementPage"
+             Title="" BackgroundColor="Beige">
+    <Grid RowDefinitions="Auto,*" Padding="20">
+        <Button Text="← Geri Dön"
+                Grid.Row="0"
+                WidthRequest="120"
+                HeightRequest="40"
+                BackgroundColor="#2196F3"
+                TextColor="White"
+                CornerRadius="10"
+                HorizontalOptions="Start"
+                Margin="0,0,0,20" 
+                Clicked="OnBackButtonClicked"/>
+
+        <HorizontalStackLayout Grid.Row="1" 
+                               Spacing="20"
+                               HorizontalOptions="Center" 
+                               VerticalOptions="Center">
+            <Border WidthRequest="300" 
+                    HeightRequest="450" 
+                    BackgroundColor="White" 
+                    StrokeThickness="0">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="15"/>
+                </Border.StrokeShape>
+                <Border.Shadow>
+                    <Shadow Brush="Black" Opacity="0.3" Radius="10" Offset="0,5"/>
+                </Border.Shadow>
+                <VerticalStackLayout Spacing="20" 
+                                     VerticalOptions="Center" 
+                                     HorizontalOptions="Center">
+                    <Label Text="Ürün Ekle" 
+                           FontSize="20" 
+                           FontAttributes="Bold"
+                           HorizontalOptions="Center"/>
+
+                    <Entry Placeholder="İsim giriniz" 
+                           WidthRequest="250"
+                           x:Name="ProductNameEntry"/>
+
+                    <Entry Placeholder="Fiyat giriniz" 
+                           WidthRequest="250"
+                           Keyboard="Numeric"
+                           x:Name="ProductPriceEntry"/>
+
+                    <Picker Title="Kategori Seçiniz"
+                            WidthRequest="250"
+                            x:Name="CategoryPicker" 
+                            ItemDisplayBinding="{Binding name}"/>
+
+                    <Button Text="Ekle" 
+                            WidthRequest="250"
+                            BackgroundColor="#4CAF50"
+                            TextColor="White" 
+                            Clicked="OnProductAddedButtonClicked"/>
+                </VerticalStackLayout>
+            </Border>
+
+            <Border WidthRequest="600" 
+                    HeightRequest="450" 
+                    BackgroundColor="White" 
+                    StrokeThickness="0">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="15"/>
+                </Border.StrokeShape>
+                <Border.Shadow>
+                    <Shadow Brush="Black" Opacity="0.3" Radius="10" Offset="0,5"/>
+                </Border.Shadow>
+                <VerticalStackLayout Spacing="10" Padding="15">
+                    <Label Text="Ürün Listesi" 
+                           FontSize="20" 
+                           FontAttributes="Bold"
+                           HorizontalOptions="Center"
+                           Margin="0,0,0,10"/>
+
+                    <Grid ColumnDefinitions="4*, 2*, Auto" 
+                          Padding="10"
+                          BackgroundColor="#E0E0E0">
+                        <Label Text="İsim" 
+                               FontAttributes="Bold" 
+                               Grid.Column="0"/>
+                        <Label Text="Fiyat" 
+                               FontAttributes="Bold" 
+                               Grid.Column="1"/>
+                        <Label Text="İşlem" 
+                               FontAttributes="Bold" 
+                               Grid.Column="2"/>
+                    </Grid>
+
+                    <CollectionView x:Name="ProductsCollectionView"
+                                    ItemsSource="{Binding Products}"
+                                    HeightRequest="340"
+                                    SelectionMode="None">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Border StrokeThickness="0" 
+                                        BackgroundColor="White" 
+                                        Margin="0,5,0,5" 
+                                        Padding="5">
+
+                                    <Grid ColumnDefinitions="4*, 2*, Auto" VerticalOptions="Center">
+
+                                        <Label Grid.Column="0" 
+                                               Text="{Binding name}" 
+                                               TextColor="#333" 
+                                               FontSize="16"
+                                               VerticalOptions="Center" 
+                                               Padding="10,0,0,0"/>
+
+                                        <Label Grid.Column="1" 
+                                               Text="{Binding price, StringFormat='{0:N0}'}" 
+                                               TextColor="#2E7D32" 
+                                               FontAttributes="Bold"
+                                               VerticalOptions="Center"/>
+
+                                        <Button Grid.Column="2" 
+                                                Text="🗑️" 
+                                                BackgroundColor="#FFEBEE" 
+                                                TextColor="#D32F2F"
+                                                HeightRequest="35" 
+                                                WidthRequest="50" 
+                                                Padding="0" 
+                                                CornerRadius="8"
+                                                CommandParameter="{Binding .}"
+                                                Clicked="OnDeleteProductClicked"/>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+
+                        <CollectionView.EmptyView>
+                            <Label Text="Listelenecek ürün yok."
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center"
+                                   TextColor="Gray"/>
+                        </CollectionView.EmptyView>
+                    </CollectionView>
+
+                </VerticalStackLayout>
+            </Border>
+        </HorizontalStackLayout>
+    </Grid>
+</ContentPage>

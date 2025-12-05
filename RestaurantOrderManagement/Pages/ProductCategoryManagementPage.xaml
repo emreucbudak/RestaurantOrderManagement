@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="RestaurantOrderManagement.Pages.ProductCategoryManagementPage"
+             Title="" BackgroundColor="Beige">
+    <Grid>
+        <Button Text="← Geri Dön"
+                WidthRequest="120"
+                HeightRequest="40"
+                BackgroundColor="#2196F3"
+                TextColor="White"
+                CornerRadius="10"
+                HorizontalOptions="Start"
+                VerticalOptions="Start"
+                Margin="20"
+                Clicked="OnBackButtonClicked"/>
+
+        <Grid HorizontalOptions="Center" VerticalOptions="Center">
+            <HorizontalStackLayout Spacing="20">
+
+                <Border WidthRequest="300" 
+                        HeightRequest="400" 
+                        BackgroundColor="White" 
+                        StrokeThickness="0">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="15"/>
+                    </Border.StrokeShape>
+                    <Border.Shadow>
+                        <Shadow Brush="Black" Opacity="0.3" Radius="10" Offset="0,5"/>
+                    </Border.Shadow>
+                    <VerticalStackLayout Spacing="20" 
+                                         VerticalOptions="Center" 
+                                         HorizontalOptions="Center">
+                        <Label Text="Kategori Ekle" 
+                               FontSize="20" 
+                               FontAttributes="Bold"
+                               HorizontalOptions="Center"/>
+                        <Entry Placeholder="İsim giriniz" 
+                               WidthRequest="250"
+                               x:Name="CategoryNameEntry"/>
+                        <Button Text="Ekle" 
+                                WidthRequest="250"
+                                BackgroundColor="#4CAF50"
+                                TextColor="White"
+                                Clicked="OnAddCategoryClicked"/>
+                    </VerticalStackLayout>
+                </Border>
+
+                <Border WidthRequest="400" 
+                        HeightRequest="400" 
+                        BackgroundColor="White" 
+                        StrokeThickness="0">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="15"/>
+                    </Border.StrokeShape>
+                    <Border.Shadow>
+                        <Shadow Brush="Black" Opacity="0.3" Radius="10" Offset="0,5"/>
+                    </Border.Shadow>
+                    <VerticalStackLayout Spacing="10" Padding="15">
+                        <Label Text="Kategori Listesi" 
+                               FontSize="20" 
+                               FontAttributes="Bold"
+                               HorizontalOptions="Center"
+                               Margin="0,0,0,10"/>
+
+                        <Grid ColumnDefinitions="*,Auto" 
+                              Padding="10"
+                              BackgroundColor="#E0E0E0">
+                            <Label Text="İsim" 
+                                   FontAttributes="Bold" 
+                                   Grid.Column="0"
+                                   VerticalOptions="Center"/>
+                            <Label Text="İşlem" 
+                                   FontAttributes="Bold" 
+                                   Grid.Column="1"
+                                   VerticalOptions="Center"
+                                   Margin="10,0,0,0"/>
+                        </Grid>
+
+                        <CollectionView x:Name="CategoriesCollectionView" 
+                ItemsSource="{Binding productCategories}"  HeightRequest="300"
+                SelectionMode="None">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Border StrokeThickness="0" 
+                                            BackgroundColor="White" 
+                                            Margin="0,5,0,5" 
+                                            Padding="5">
+
+                                        <Grid ColumnDefinitions="*,Auto" VerticalOptions="Center">
+
+                                            <Label Grid.Column="0" 
+                                                   Text="{Binding name}" 
+                                                   TextColor="#333" 
+                                                   FontSize="16"
+                                                   VerticalOptions="Center" 
+                                                   Padding="10,0,0,0"/>
+
+                                            <Button Grid.Column="1" 
+                                                    Text="🗑️" 
+                                                    BackgroundColor="#FFEBEE" 
+                                                    TextColor="#D32F2F"
+                                                    HeightRequest="35" 
+                                                    WidthRequest="40" 
+                                                    Padding="0" 
+                                                    CornerRadius="8"
+                                                    Clicked="OnDeleteCategoryClicked"/>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                            <CollectionView.EmptyView>
+                                <Label Text="Henüz kategori eklenmemiş."
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center"
+                                       TextColor="Gray"/>
+                            </CollectionView.EmptyView>
+                        </CollectionView>
+
+                    </VerticalStackLayout>
+                </Border>
+            </HorizontalStackLayout>
+        </Grid>
+    </Grid>
+</ContentPage>

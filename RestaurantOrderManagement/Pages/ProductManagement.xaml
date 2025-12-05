@@ -12,20 +12,28 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Image Grid.Row="0" 
-               Source="https://dcassetcdn.com/design_img/4037633/521021/30458202/8jx4nkx5jtsyw43tm9nae7dyfs_image.jpg" 
-               WidthRequest="200" 
-               HeightRequest="100" 
-               Aspect="AspectFill"
-               Margin="0,20,0,0"/>
+        <Grid Grid.Row="0" Margin="0,20,0,0">
+            <Button Text="← Geri" 
+                    Clicked="OnBackButtonClicked"
+                    HorizontalOptions="Start"
+                    VerticalOptions="Start"
+                    Margin="20,0,0,0"
+                    WidthRequest="100"
+                    BackgroundColor="LightGray"/>
+            <Image Source="https://dcassetcdn.com/design_img/4037633/521021/30458202/8jx4nkx5jtsyw43tm9nae7dyfs_image.jpg" 
+                   WidthRequest="200" 
+                   HeightRequest="100" 
+                   Aspect="AspectFill"
+                   HorizontalOptions="Center"/>
+        </Grid>
 
         <VerticalStackLayout Grid.Row="1" 
                             VerticalOptions="End" 
                             HorizontalOptions="Center" 
                             Spacing="20"
                             Margin="0,0,0,50">
-            <Button WidthRequest="400" Text="Ürün Yönetimi"/>
-            <Button WidthRequest="400" Text="Ürün Kategori Yönetimi"/>
+            <Button WidthRequest="400" Text="Ürün Yönetimi" Clicked="OnProductManagementPageClicked"/>
+            <Button WidthRequest="400" Text="Ürün Kategori Yönetimi" Clicked="OnProductCategoryManagementPageClicked"/>
         </VerticalStackLayout>
     </Grid>
 </ContentPage>
