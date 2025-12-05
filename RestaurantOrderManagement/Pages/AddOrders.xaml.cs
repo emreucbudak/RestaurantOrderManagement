@@ -5,40 +5,44 @@ namespace RestaurantOrderManagement.Pages;
 
 public partial class AddOrders : ContentPage
 {
-	private readonly LoginService loginService;
+    private readonly LoginService loginService;
+
     public AddOrders(LoginService loginService)
     {
         this.loginService = loginService;
         InitializeComponent();
-        
     }
+
     protected override async void OnAppearing()
     {
         base.OnAppearing();
         await LoadAllAvailableDesks();
         await LoadAllProducts();
     }
+
     private async void OnBackButtonClicked(object sender, EventArgs e)
-	{
-		await Shell.Current.GoToAsync("///RestaurantManager");
+    {
+        await Shell.Current.GoToAsync("///RestaurantManager");
     }
-	private async Task LoadAllAvailableDesks() {
-		try
-		{
-			using var client = new HttpClient();
-			var response = await client.GetFromJsonAsync<List<Models.OrderDesks>>($"http://127.0.0.1:8000/tables/available?restaurant_id={loginService.CurrentSession.RestoranId}");
-			if (response is null)
-			{
-				throw new Exception("masa datalarý çekilemedi!");
-			}
-			TablePicker.ItemsSource = response;
+
+    private async Task LoadAllAvailableDesks()
+    {
+        try
+        {
+            using var client = new HttpClient();
+            var response = await client.GetFromJsonAsync<List<Models.OrderDesks>>($"http://127.0.0.1:8000/tables/available?restaurant_id={loginService.CurrentSession.RestoranId}");
+            if (response is null)
+            {
+                throw new Exception("masa datalarý çekilemedi!");
+            }
+            TablePicker.ItemsSource = response;
         }
-		catch (Exception ex)
-		{
-			await DisplayAlertAsync("Error", ex.Message, "OK");
+        catch (Exception ex)
+        {
+            await DisplayAlertAsync("Error", ex.Message, "OK");
         }
-	
-	}
+    }
+
     private async Task LoadAllProducts()
     {
         try
@@ -47,7 +51,6 @@ public partial class AddOrders : ContentPage
             client.DefaultRequestHeaders.Authorization =
                 new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", loginService.CurrentSession.AccessToken);
 
-            // 1. Önce saf Product listesini çek
             var products = await client.GetFromJsonAsync<List<Models.Product>>($"http://127.0.0.1:8000/products/");
 
             if (products is null)
@@ -55,34 +58,27 @@ public partial class AddOrders : ContentPage
                 throw new Exception("ürün datalarý çekilemedi!");
             }
 
-            // 2. Product listesini OrderProduct listesine dönüþtür (Quantity: 0 olarak baþlar)
             var orderProducts = products.Select(p => Models.OrderProduct.FromProduct(p)).ToList();
 
-            // 3. CollectionView'a bu yeni listeyi ver
             ProductsCollectionView.ItemsSource = orderProducts;
-
         }
         catch (Exception ex)
         {
             await DisplayAlertAsync("Hata", ex.Message, "OK");
         }
     }
-    // Miktarý Arttýr (+)
+
     private void OnIncreaseQuantity(object sender, TappedEventArgs e)
     {
-        // Týklanan elementi (Label veya Border) bul
         var element = (VisualElement)sender;
-
-        // O satýrdaki veriyi (OrderProduct) al
         var product = (Models.OrderProduct)element.BindingContext;
 
         if (product != null)
         {
-            product.Quantity++; // INotifyPropertyChanged sayesinde ekranda otomatik artar
+            product.Quantity++;
         }
     }
 
-    // Miktarý Azalt (-)
     private void OnDecreaseQuantity(object sender, TappedEventArgs e)
     {
         var element = (VisualElement)sender;
@@ -93,9 +89,9 @@ public partial class AddOrders : ContentPage
             product.Quantity--;
         }
     }
+
     private async void OnSaveOrderClicked(object sender, EventArgs e)
     {
-        // 1. Masa Seçili mi Kontrol Et
         var selectedTable = (Models.OrderDesks)TablePicker.SelectedItem;
         if (selectedTable == null)
         {
@@ -103,7 +99,6 @@ public partial class AddOrders : ContentPage
             return;
         }
 
-        // 2. Listeden Quantity > 0 olan ürünleri bul
         var allProducts = (List<Models.OrderProduct>)ProductsCollectionView.ItemsSource;
         var selectedItems = allProducts.Where(p => p.Quantity > 0).ToList();
 
@@ -113,10 +108,10 @@ public partial class AddOrders : ContentPage
             return;
         }
 
-        // 3. Backend'e gidecek JSON modelini hazýrla
         var orderRequest = new CreateOrderRequest
         {
             table_id = selectedTable.id,
+            payment_type_id = 1,
             items = selectedItems.Select(p => new OrderItemRequest
             {
                 product_id = p.id,
@@ -124,7 +119,6 @@ public partial class AddOrders : ContentPage
             }).ToList()
         };
 
-        // 4. Ýsteði Gönder
         try
         {
             using var client = new HttpClient();
@@ -136,7 +130,7 @@ public partial class AddOrders : ContentPage
             if (response.IsSuccessStatusCode)
             {
                 await DisplayAlertAsync("Baþarýlý", "Sipariþ mutfaða iletildi!", "Tamam");
-           
+
                 await Shell.Current.GoToAsync("///RestaurantManager");
             }
             else
@@ -150,9 +144,11 @@ public partial class AddOrders : ContentPage
             await DisplayAlertAsync("Hata", $"Baðlantý hatasý: {ex.Message}", "Tamam");
         }
     }
+
     public class CreateOrderRequest
     {
         public int table_id { get; set; }
+        public int payment_type_id { get; set; }
         public List<OrderItemRequest> items { get; set; }
     }
 
