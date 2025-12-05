@@ -17,9 +17,9 @@
         </VerticalStackLayout>
 
         <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="15" Margin="0,280,0,0">
-            <Button WidthRequest="400" HeightRequest="10" Text="Sipariş Ekle" FontSize="20" />
-            <Button WidthRequest="400" HeightRequest="10" Text="Sipariş Listesi" FontSize="20" />
-            <Button WidthRequest="400" HeightRequest="10" Text="Çıkış Yap" FontSize="20"/>
+            <Button WidthRequest="400" HeightRequest="10" Text="Sipariş Ekle" FontSize="20" Clicked="OnOrderAddClicked" />
+            <Button WidthRequest="400" HeightRequest="10" Text="Sipariş Listesi" FontSize="20" Clicked="OnOrderListClicked"/>
+            <Button WidthRequest="400" HeightRequest="10" Text="Çıkış Yap" FontSize="20" Clicked="OnLogOutClicked"/>
         </VerticalStackLayout>
     </Grid>
 </ContentPage>

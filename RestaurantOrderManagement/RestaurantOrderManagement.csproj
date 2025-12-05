@@ -87,6 +87,12 @@
 	  <MauiXaml Update="Pages\WaiterManagementPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Pages\WaiterOrderListPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\WaiterOrderPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Pages\WaiterPanel.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
