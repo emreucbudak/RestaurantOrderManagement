@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="RestaurantOrderManagement.Pages.WaiterOrderListPage"
              Title="" BackgroundColor="Beige">
+
     <Grid Padding="20">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -29,7 +30,7 @@
                     StrokeShape="RoundRectangle 10"
                     VerticalOptions="Center"
                     HorizontalOptions="Center"
-                    MinimumWidthRequest="900">
+                    MinimumWidthRequest="600">
 
                 <Grid Padding="20">
                     <Grid.RowDefinitions>
@@ -52,14 +53,12 @@
                             <ColumnDefinition Width="130"/>
                             <ColumnDefinition Width="150"/>
                             <ColumnDefinition Width="130"/>
-                            <ColumnDefinition Width="250"/>
                         </Grid.ColumnDefinitions>
 
                         <Label Text="Masa Adı" Grid.Column="0" FontAttributes="Bold" TextColor="#8B4513" HorizontalTextAlignment="Center"/>
                         <Label Text="Toplam Fiyat" Grid.Column="1" FontAttributes="Bold" TextColor="#8B4513" HorizontalTextAlignment="Center"/>
                         <Label Text="Sipariş Durumu" Grid.Column="2" FontAttributes="Bold" TextColor="#8B4513" HorizontalTextAlignment="Center"/>
                         <Label Text="Ödeme Tipi" Grid.Column="3" FontAttributes="Bold" TextColor="#8B4513" HorizontalTextAlignment="Center"/>
-                        <Label Text="İşlemler" Grid.Column="4" FontAttributes="Bold" TextColor="#8B4513" HorizontalTextAlignment="Center"/>
                     </Grid>
 
                     <CollectionView x:Name="OrdersCollectionView" Grid.Row="2" Margin="0,5,0,10">
@@ -71,7 +70,6 @@
                                         <ColumnDefinition Width="130"/>
                                         <ColumnDefinition Width="150"/>
                                         <ColumnDefinition Width="130"/>
-                                        <ColumnDefinition Width="250"/>
                                     </Grid.ColumnDefinitions>
 
                                     <Label Text="{Binding TableName}" Grid.Column="0" VerticalOptions="Center" HorizontalTextAlignment="Center" FontSize="13"/>
@@ -79,47 +77,7 @@
                                     <Label Text="{Binding StatusName}" Grid.Column="2" VerticalOptions="Center" HorizontalTextAlignment="Center" FontSize="13" FontAttributes="Bold"/>
                                     <Label Text="{Binding PaymentTypeName}" Grid.Column="3" VerticalOptions="Center" HorizontalTextAlignment="Center" FontSize="13"/>
 
-                                    <HorizontalStackLayout Grid.Column="4" Spacing="10" HorizontalOptions="Center" VerticalOptions="Center">
-
-                                        <Button Text="Hazırlandı"
-                                                IsVisible="{Binding IsPreparedButtonVisible}"
-                                                BackgroundColor="#FFA500"
-                                                TextColor="White"
-                                                FontSize="11"
-                                                Padding="5,0"
-                                                HeightRequest="35"
-                                                Clicked="OnPreparedClicked"
-                                                CommandParameter="{Binding .}"/>
-
-                                        <Button Text="Teslim Et"
-                                                IsVisible="{Binding IsDeliveredButtonVisible}"
-                                                BackgroundColor="#4CAF50"
-                                                TextColor="White"
-                                                FontSize="11"
-                                                Padding="5,0"
-                                                HeightRequest="35"
-                                                Clicked="OnDeliveredClicked"
-                                                CommandParameter="{Binding .}"/>
-
-                                        <Button Text="İptal Et"
-                                                IsVisible="{Binding IsCancelButtonVisible}"
-                                                BackgroundColor="#D32F2F"
-                                                TextColor="White"
-                                                FontSize="11"
-                                                Padding="5,0"
-                                                HeightRequest="35"
-                                                Clicked="OnCancelClicked"
-                                                CommandParameter="{Binding .}"/>
-
-                                        <Label Text="Tamamlandı" 
-                                               IsVisible="{Binding IsCompleted}"
-                                               TextColor="Gray"
-                                               FontSize="11"
-                                               VerticalOptions="Center"/>
-
-                                    </HorizontalStackLayout>
-
-                                    <BoxView Grid.ColumnSpan="5" HeightRequest="1" Color="#E0E0E0" VerticalOptions="End" Margin="0,12,0,0"/>
+                                    <BoxView Grid.ColumnSpan="4" HeightRequest="1" Color="#E0E0E0" VerticalOptions="End" Margin="0,12,0,0"/>
                                 </Grid>
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
