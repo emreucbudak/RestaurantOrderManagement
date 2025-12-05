@@ -28,7 +28,7 @@ public partial class ProductManagementPage : ContentPage
             var waiterstList = await client.GetFromJsonAsync<List<ProductCategory>>("http://127.0.0.1:8000/categories/");
             if (waiterstList is null)
             {
-                throw new Exception("serverdan data ?ekilemedi !");
+ 
             }
             CategoryPicker.ItemsSource = waiterstList;
 
@@ -44,7 +44,7 @@ public partial class ProductManagementPage : ContentPage
         var selectedCategory = CategoryPicker.SelectedItem as ProductCategory;
         if (selectedCategory is null)
         {
-            await DisplayAlertAsync("Do?rulama Hatas?", "L?tfen Kategori Se?", "OK");
+
             return;
         }
         int categoryId = selectedCategory.id;
@@ -65,7 +65,7 @@ public partial class ProductManagementPage : ContentPage
                 var response = await client.PostAsJsonAsync("http://127.0.0.1:8000/products/", newProduct);
                 if (response.IsSuccessStatusCode)
                 {
-                    await DisplayAlertAsync("Ba?ar?l?", "?r?n ba?ar?yla eklendi.", "Tamam");
+
                     ProductNameEntry.Text = string.Empty;
                     ProductPriceEntry.Text = string.Empty;
                     CategoryPicker.SelectedItem = null;
@@ -82,7 +82,7 @@ public partial class ProductManagementPage : ContentPage
         }
         else
         {
-            await DisplayAlertAsync("Hata", "L?tfen ge?erli bir fiyat giriniz.", "Tamam");
+
             return;
         }
 
@@ -97,14 +97,13 @@ public partial class ProductManagementPage : ContentPage
             var productsList = await client.GetFromJsonAsync<List<Product>>("http://127.0.0.1:8000/products/");
             if (productsList is null)
             {
-                throw new Exception("serverdan data ?ekilemedi !");
+
             }
             Products.Clear();
             foreach (var product in productsList)
             {
                 Products.Add(product);
-            }
-            ;
+
         }
         catch (Exception ex)
         {
@@ -117,7 +116,7 @@ public partial class ProductManagementPage : ContentPage
         var productToDelete = button?.CommandParameter as Product;
         if (productToDelete is null)
         {
-            await DisplayAlertAsync("Hata", "Silinecek ?r?n bilgisi al?namad?.", "Tamam");
+
             return;
         }
         try
@@ -130,11 +129,7 @@ public partial class ProductManagementPage : ContentPage
             if (response.IsSuccessStatusCode)
             {
                 await LoadAllProducts();
-                await DisplayAlertAsync("Ba?ar?l?", "?r?n ba?ar?yla silindi.", "Tamam");
-            }
-            else
-            {
-                await DisplayAlertAsync("Hata", "?r?n silinirken bir hata olu?tu.", "Tamam");
+
             }
         }
         catch (Exception ex)

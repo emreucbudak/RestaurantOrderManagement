@@ -1,4 +1,3 @@
-﻿using RestaurantOrderManagement.Models;
 using System.Buffers.Text;
 using System.Collections.ObjectModel;
 using System.Net.Http.Json;
@@ -24,7 +23,7 @@ public partial class ProductCategoryManagementPage : ContentPage
         string categoryNameEntry = CategoryNameEntry.Text;
         if (string.IsNullOrWhiteSpace(categoryNameEntry))
         {
-            await DisplayAlertAsync("Uyar�", "L�tfen bir kategori ad� girin.", "Tamam");
+            await DisplayAlertAsync("Uyarï¿½", "Lï¿½tfen bir kategori adï¿½ girin.", "Tamam");
             return;
         }
         try
@@ -38,14 +37,14 @@ public partial class ProductCategoryManagementPage : ContentPage
             var response = await client.PostAsync("http://127.0.0.1:8000/categories/", content);
             if (response.IsSuccessStatusCode)
             {
-                await DisplayAlertAsync("Ba�ar�l�", "Kategori ba�ar�yla eklendi.", "Tamam");
+                await DisplayAlertAsync("Baï¿½arï¿½lï¿½", "Kategori baï¿½arï¿½yla eklendi.", "Tamam");
                 CategoryNameEntry.Text = string.Empty;
                 await RefreshListFromApi();
             }
             else
             {
                 string errorResponse = await response.Content.ReadAsStringAsync();
-                await DisplayAlertAsync("Hata", $"Kategori eklenemedi. Sunucu yan�t�: {errorResponse}", "Tamam");
+                await DisplayAlertAsync("Hata", $"Kategori eklenemedi. Sunucu yanï¿½tï¿½: {errorResponse}", "Tamam");
             }
 
 
@@ -77,7 +76,7 @@ public partial class ProductCategoryManagementPage : ContentPage
         }
         catch (Exception ex)
         {
-            await DisplayAlertAsync("Hata", $"Liste �ekilemedi {ex.Message}", "OK");
+            await DisplayAlertAsync("Hata", $"Liste ï¿½ekilemedi {ex.Message}", "OK");
         }
     }
     private async void OnDeleteCategoryClicked(object sender, EventArgs e)
@@ -95,13 +94,13 @@ public partial class ProductCategoryManagementPage : ContentPage
             var response = await client.DeleteAsync($"http://127.0.0.1:8000/categories/{categoryIdToDelete}");
             if (response.IsSuccessStatusCode)
             {
-                await DisplayAlertAsync("Ba�ar�l�", "Kategori ba�ar�yla silindi.", "Tamam");
+                await DisplayAlertAsync("Baï¿½arï¿½lï¿½", "Kategori baï¿½arï¿½yla silindi.", "Tamam");
                 await RefreshListFromApi();
             }
             else
             {
                 string errorResponse = await response.Content.ReadAsStringAsync();
-                await DisplayAlertAsync("Hata", $"Kategori silinemedi. Sunucu yan�t�: {errorResponse}", "Tamam");
+                await DisplayAlertAsync("Hata", $"Kategori silinemedi. Sunucu yanï¿½tï¿½: {errorResponse}", "Tamam");
             }
         }
         catch (Exception ex)

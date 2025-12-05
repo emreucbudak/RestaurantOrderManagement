@@ -3,14 +3,18 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="RestaurantOrderManagement.Pages.ProductManagement"
              Title="" BackgroundColor="Beige">
-    <Grid WidthRequest="500" HeightRequest="500" BackgroundColor="White">
-        <Grid.Clip>
-            <RoundRectangleGeometry Rect="0,0,500,500" CornerRadius="20"/>
-        </Grid.Clip>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
+    <Grid>
+        <!-- Geri Dön Butonu -->
+        <Button Text="← Geri Dön"
+                WidthRequest="120"
+                HeightRequest="40"
+                BackgroundColor="#2196F3"
+                TextColor="White"
+                CornerRadius="10"
+                HorizontalOptions="Start"
+                VerticalOptions="Start"
+                Margin="20"
+                Clicked="OnBackButtonClicked"/>
 
         <Grid Grid.Row="0" Margin="0,20,0,0">
             <Button Text="← Geri" 
