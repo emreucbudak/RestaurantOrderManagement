@@ -2,11 +2,167 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="RestaurantOrderManagement.Pages.OrderListPage"
-             Title="OrderListPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             Title="" BackgroundColor="Beige">
+
+    <Grid Padding="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Geri Dön Butonu -->
+        <Button Text="← Geri Dön"
+                Grid.Row="0"
+                BackgroundColor="#8B4513"
+                TextColor="White"
+                CornerRadius="5"
+                Padding="15,10"
+                HorizontalOptions="Start"
+                VerticalOptions="Start"
+                Margin="0,0,0,10"
+                Clicked="OnBackButtonClicked"/>
+
+        <ScrollView Grid.Row="1" 
+                    Orientation="Horizontal"
+                    HorizontalScrollBarVisibility="Always">
+            <Border StrokeThickness="1"
+                    Stroke="#D4A574"
+                    Background="White"
+                    StrokeShape="RoundRectangle 10"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center"
+                    MinimumWidthRequest="900">
+
+                <Grid Padding="20">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Başlık -->
+                    <Label Text="Siparişler"
+                           FontSize="24"
+                           FontAttributes="Bold"
+                           TextColor="#8B4513"
+                           HorizontalOptions="Center"
+                           Margin="0,10,0,20"
+                           Grid.Row="0"/>
+
+                    <!-- Tablo Başlıkları -->
+                    <Grid Grid.Row="1" Padding="15,10" BackgroundColor="#F5E6D3" ColumnSpacing="15">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="120"/>
+                            <ColumnDefinition Width="130"/>
+                            <ColumnDefinition Width="150"/>
+                            <ColumnDefinition Width="130"/>
+                            <ColumnDefinition Width="150"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label Text="Masa Adı" 
+                               Grid.Column="0" 
+                               FontAttributes="Bold" 
+                               TextColor="#8B4513" 
+                               HorizontalTextAlignment="Center"
+                               VerticalTextAlignment="Center"
+                               FontSize="14"/>
+                        <Label Text="Toplam Fiyat" 
+                               Grid.Column="1" 
+                               FontAttributes="Bold" 
+                               TextColor="#8B4513" 
+                               HorizontalTextAlignment="Center"
+                               VerticalTextAlignment="Center"
+                               FontSize="14"/>
+                        <Label Text="Sipariş Durumu" 
+                               Grid.Column="2" 
+                               FontAttributes="Bold" 
+                               TextColor="#8B4513" 
+                               HorizontalTextAlignment="Center"
+                               VerticalTextAlignment="Center"
+                               FontSize="14"/>
+                        <Label Text="Ödeme Tipi" 
+                               Grid.Column="3" 
+                               FontAttributes="Bold" 
+                               TextColor="#8B4513" 
+                               HorizontalTextAlignment="Center"
+                               VerticalTextAlignment="Center"
+                               FontSize="14"/>
+                        <Label Text="İşlemler" 
+                               Grid.Column="4" 
+                               FontAttributes="Bold" 
+                               TextColor="#8B4513" 
+                               HorizontalTextAlignment="Center"
+                               VerticalTextAlignment="Center"
+                               FontSize="14"/>
+                    </Grid>
+
+                    <!-- Tablo İçeriği (CollectionView) -->
+                    <CollectionView x:Name="OrdersCollectionView" Grid.Row="2" Margin="0,5,0,10">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Padding="15,12" BackgroundColor="White" ColumnSpacing="15">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="120"/>
+                                        <ColumnDefinition Width="130"/>
+                                        <ColumnDefinition Width="150"/>
+                                        <ColumnDefinition Width="130"/>
+                                        <ColumnDefinition Width="150"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Label Text="{Binding TableName}" 
+                                           Grid.Column="0" 
+                                           VerticalOptions="Center" 
+                                           HorizontalTextAlignment="Center"
+                                           FontSize="13"/>
+                                    <Label Text="{Binding TotalPrice, StringFormat='{0:C}'}" 
+                                           Grid.Column="1" 
+                                           VerticalOptions="Center" 
+                                           HorizontalTextAlignment="Center"
+                                           FontSize="13"/>
+                                    <Label Text="{Binding OrderStatus}" 
+                                           Grid.Column="2" 
+                                           VerticalOptions="Center" 
+                                           HorizontalTextAlignment="Center"
+                                           FontSize="13"/>
+                                    <Label Text="{Binding PaymentType}" 
+                                           Grid.Column="3" 
+                                           VerticalOptions="Center" 
+                                           HorizontalTextAlignment="Center"
+                                           FontSize="13"/>
+
+                                    <Border Grid.Column="4" 
+                                            BackgroundColor="#4CAF50"
+                                            Stroke="Transparent"
+                                            StrokeThickness="0"
+                                            StrokeShape="RoundRectangle 5"
+                                            Padding="12,8"
+                                            HorizontalOptions="Center"
+                                            VerticalOptions="Center">
+                                        <Label Text="Teslim Edildi" 
+                                               TextColor="White"
+                                               FontSize="12"
+                                               FontAttributes="Bold"
+                                               HorizontalTextAlignment="Center"
+                                               VerticalTextAlignment="Center">
+                                            <Label.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.DeliverOrderCommand}"
+                                                                    CommandParameter="{Binding}"/>
+                                            </Label.GestureRecognizers>
+                                        </Label>
+                                    </Border>
+
+                                    <BoxView Grid.ColumnSpan="5" 
+                                             HeightRequest="1" 
+                                             Color="#E0E0E0" 
+                                             VerticalOptions="End"
+                                             Margin="0,12,0,0"/>
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </Grid>
+            </Border>
+        </ScrollView>
+    </Grid>
+
 </ContentPage>
