@@ -30,7 +30,7 @@
                 StrokeShape="RoundRectangle 10"
                 VerticalOptions="Center"
                 HorizontalOptions="Center"
-                MaximumWidthRequest="800"
+                MaximumWidthRequest="950"
                 MinimumHeightRequest="600">
 
             <Grid Padding="25">
@@ -60,7 +60,8 @@
                             Title="Masa seçiniz..."
                             BackgroundColor="#F5F5F5"
                             TextColor="#333"
-                            HeightRequest="45"/>
+                            HeightRequest="45"
+                            ItemDisplayBinding="{Binding name}"/>
                 </VerticalStackLayout>
 
                 <!-- Ürünler Tablosu -->
@@ -76,11 +77,12 @@
                         </Grid.RowDefinitions>
 
                         <!-- Tablo Başlıkları -->
-                        <Grid Grid.Row="0" Padding="15,12" BackgroundColor="#F5E6D3" ColumnSpacing="10">
+                        <Grid Grid.Row="0" Padding="15,12" BackgroundColor="#F5E6D3" ColumnSpacing="15">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="2*"/>
-                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="250"/>
                                 <ColumnDefinition Width="120"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="140"/>
                             </Grid.ColumnDefinitions>
 
                             <Label Text="Ürün Adı" 
@@ -88,21 +90,28 @@
                                    FontAttributes="Bold" 
                                    TextColor="#8B4513" 
                                    VerticalTextAlignment="Center"
-                                   FontSize="14"/>
+                                   FontSize="15"/>
                             <Label Text="Fiyat" 
                                    Grid.Column="1" 
                                    FontAttributes="Bold" 
                                    TextColor="#8B4513" 
                                    HorizontalTextAlignment="Center"
                                    VerticalTextAlignment="Center"
-                                   FontSize="14"/>
-                            <Label Text="İşlemler" 
+                                   FontSize="15"/>
+                            <Label Text="Adet" 
                                    Grid.Column="2" 
                                    FontAttributes="Bold" 
                                    TextColor="#8B4513" 
                                    HorizontalTextAlignment="Center"
                                    VerticalTextAlignment="Center"
-                                   FontSize="14"/>
+                                   FontSize="15"/>
+                            <Label Text="İşlemler" 
+                                   Grid.Column="3" 
+                                   FontAttributes="Bold" 
+                                   TextColor="#8B4513" 
+                                   HorizontalTextAlignment="Center"
+                                   VerticalTextAlignment="Center"
+                                   FontSize="15"/>
                         </Grid>
 
                         <!-- Ürünler Listesi -->
@@ -110,65 +119,93 @@
                             <CollectionView x:Name="ProductsCollectionView">
                                 <CollectionView.ItemTemplate>
                                     <DataTemplate>
-                                        <Grid Padding="15,12" BackgroundColor="White" ColumnSpacing="10">
+                                        <Grid Padding="15,12" BackgroundColor="White" ColumnSpacing="15">
                                             <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="2*"/>
-                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="250"/>
                                                 <ColumnDefinition Width="120"/>
+                                                <ColumnDefinition Width="100"/>
+                                                <ColumnDefinition Width="140"/>
                                             </Grid.ColumnDefinitions>
 
-                                            <Label Text="{Binding Name}" 
+                                            <!-- Ürün Adı -->
+                                            <Label Text="{Binding name}" 
                                                    Grid.Column="0" 
                                                    VerticalOptions="Center"
                                                    FontSize="14"
                                                    TextColor="#333"/>
 
-                                            <Label Text="{Binding Price, StringFormat='{0:C}'}" 
+                                            <!-- Fiyat -->
+                                            <Label Text="{Binding price, StringFormat='{0:N0} ₺'}" 
                                                    Grid.Column="1" 
                                                    VerticalOptions="Center" 
                                                    HorizontalTextAlignment="Center"
                                                    FontSize="14"
                                                    TextColor="#333"/>
 
-                                            <HorizontalStackLayout Grid.Column="2" 
-                                                                   Spacing="8"
+                                            <!-- Adet -->
+                                            <Border Grid.Column="2"
+                                                    BackgroundColor="#F0F0F0"
+                                                    Stroke="#D4A574"
+                                                    StrokeThickness="1"
+                                                    StrokeShape="RoundRectangle 5"
+                                                    Padding="10,5"
+                                                    HorizontalOptions="Center"
+                                                    VerticalOptions="Center">
+                                                <Label Text="{Binding Quantity}" 
+                                                       HorizontalTextAlignment="Center"
+                                                       VerticalTextAlignment="Center"
+                                                       FontSize="16"
+                                                       FontAttributes="Bold"
+                                                       TextColor="#8B4513"
+                                                       WidthRequest="40"/>
+                                            </Border>
+
+                                            <!-- İşlem Butonları -->
+                                            <HorizontalStackLayout Grid.Column="3" 
+                                                                   Spacing="10"
                                                                    HorizontalOptions="Center"
                                                                    VerticalOptions="Center">
 
-                                                <!-- Ekle Butonu -->
-                                                <Border BackgroundColor="#4CAF50"
+                                                <!-- Azalt Butonu -->
+                                                <Border BackgroundColor="#F44336"
                                                         Stroke="Transparent"
                                                         StrokeShape="RoundRectangle 5"
-                                                        Padding="12,6">
-                                                    <Label Text="Ekle" 
+                                                        Padding="15,8"
+                                                        WidthRequest="50"
+                                                        HeightRequest="40">
+                                                    <Label Text="-" 
                                                            TextColor="White"
-                                                           FontSize="12"
-                                                           FontAttributes="Bold">
+                                                           FontSize="18"
+                                                           FontAttributes="Bold"
+                                                           HorizontalTextAlignment="Center"
+                                                           VerticalTextAlignment="Center">
                                                         <Label.GestureRecognizers>
-                                                            <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AddProductCommand}"
-                                                                                CommandParameter="{Binding}"/>
+                                                            <TapGestureRecognizer Tapped="OnDecreaseQuantity"/>
                                                         </Label.GestureRecognizers>
                                                     </Label>
                                                 </Border>
 
-                                                <!-- Çıkar Butonu -->
-                                                <Border BackgroundColor="#F44336"
+                                                <!-- Arttır Butonu -->
+                                                <Border BackgroundColor="#4CAF50"
                                                         Stroke="Transparent"
                                                         StrokeShape="RoundRectangle 5"
-                                                        Padding="12,6">
-                                                    <Label Text="Çıkar" 
+                                                        Padding="15,8"
+                                                        WidthRequest="50"
+                                                        HeightRequest="40">
+                                                    <Label Text="+" 
                                                            TextColor="White"
-                                                           FontSize="12"
-                                                           FontAttributes="Bold">
+                                                           FontSize="18"
+                                                           FontAttributes="Bold"
+                                                           HorizontalTextAlignment="Center"
+                                                           VerticalTextAlignment="Center">
                                                         <Label.GestureRecognizers>
-                                                            <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.RemoveProductCommand}"
-                                                                                CommandParameter="{Binding}"/>
+                                                            <TapGestureRecognizer Tapped="OnIncreaseQuantity"/>
                                                         </Label.GestureRecognizers>
                                                     </Label>
                                                 </Border>
                                             </HorizontalStackLayout>
 
-                                            <BoxView Grid.ColumnSpan="3" 
+                                            <BoxView Grid.ColumnSpan="4" 
                                                      HeightRequest="1" 
                                                      Color="#E0E0E0" 
                                                      VerticalOptions="End"
@@ -181,33 +218,17 @@
                     </Grid>
                 </Border>
 
-                <!-- Alt Butonlar -->
-                <Grid Grid.Row="3" ColumnSpacing="15">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-
-                    <Button Text="İptal"
-                            Grid.Column="0"
-                            BackgroundColor="#9E9E9E"
-                            TextColor="White"
-                            CornerRadius="8"
-                            Padding="0,12"
-                            FontSize="16"
-                            FontAttributes="Bold"
-                            Command="{Binding CancelCommand}"/>
-
-                    <Button Text="Siparişi Kaydet"
-                            Grid.Column="1"
-                            BackgroundColor="#8B4513"
-                            TextColor="White"
-                            CornerRadius="8"
-                            Padding="0,12"
-                            FontSize="16"
-                            FontAttributes="Bold"
-                            Command="{Binding SaveOrderCommand}"/>
-                </Grid>
+                <!-- Sipariş Kaydet Butonu -->
+                <Button Text="Siparişi Kaydet"
+                        Grid.Row="3"
+                        BackgroundColor="#8B4513"
+                        TextColor="White"
+                        CornerRadius="8"
+                        Padding="0,15"
+                        FontSize="16"
+                        FontAttributes="Bold"
+                        HorizontalOptions="Fill"
+                        Clicked="OnSaveOrderClicked"/>
 
             </Grid>
         </Border>
