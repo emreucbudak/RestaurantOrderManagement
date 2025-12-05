@@ -1,8 +1,16 @@
 ﻿namespace RestaurantOrderManagement.Models
 {
-    public class ProductCategory
+    public class Product
     {
+
         public int id { get; set; }
+
         public string name { get; set; }
+
+
+        public int price { get; set; }
+
+
+
     }
 }

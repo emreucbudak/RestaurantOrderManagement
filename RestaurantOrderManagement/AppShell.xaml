@@ -24,9 +24,5 @@
                   Route="OrderList"/>
     <ShellContent ContentTemplate="{DataTemplate pages:WaiterManagementPage}"
                   Route="WaiterManagement"/>
-    <ShellContent ContentTemplate="{DataTemplate pages:ProductManagementPage}"
-                  Route="ProductManagementPage"/>
-    <ShellContent ContentTemplate="{DataTemplate pages:ProductCategoryManagementPage}"
-                  Route="ProductCategoryManagementPage"/>
 
 </Shell>
